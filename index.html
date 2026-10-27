@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2PXCWN8QKZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2PXCWN8QKZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-2PXCWN8QKZ');
+    </script>
 
-  gtag('config', 'G-2PXCWN8QKZ');
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <img src="logo.png" alt="Logo de Inspiración" class="logo">
-<title>Inspiración | Tu Belleza, Tu Bienestar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspiración | Tu Belleza, Tu Bienestar</title>
 
 <style>
+            .encabezado {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 15px;
+            background: #fff0f6;
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+        }
+
+        .titulo-logo {
+            margin: 0;
+            color: #d81b60;
+            font-size: 26px;
+        }
+
     .logo {
   width: 100px;
   height: 100px;
@@ -535,7 +555,10 @@ footer p{
 
 </style>
 </head>
-
+    <header class="encabezado">
+        <img src="logo.png" alt="Logo de Inspiración" class="logo">
+        <h1 class="titulo-logo">INSPIRACIÓN</h1>
+    </header>
 <body>
 
 <header>
@@ -2463,6 +2486,257 @@ buscar.addEventListener("input",mostrarProductos);
 mostrarProductos();
 
 </script>
+    
+<!-- MINI CHATBOT DE INSPIRACIÓN -->
+<style>
+#chat-boton {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 9999;
+    background: #d81b60;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 18px #0002;
+}
+
+#chat-ventana {
+    display: none;
+    position: fixed;
+    right: 20px;
+    bottom: 85px;
+    width: min(350px, calc(100vw - 30px));
+    height: 440px;
+    max-height: calc(100dvh - 115px);
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px #0003;
+    z-index: 9999;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+#chat-cabecera {
+    background: linear-gradient(135deg, #f48fb1, #d81b60);
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chat-cabecera strong {
+    font-size: 16px;
+}
+
+#chat-cerrar {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+#chat-mensajes {
+    height: calc(100% - 135px);
+    padding: 12px;
+    overflow-y: auto;
+    background: #fff8fb;
+}
+
+.chat-msg {
+    padding: 10px 12px;
+    margin: 8px 0;
+    border-radius: 13px;
+    max-width: 88%;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.chat-bot {
+    background: #fce4ec;
+    color: #63223b;
+    margin-right: auto;
+}
+
+.chat-usuario {
+    background: #d81b60;
+    color: white;
+    margin-left: auto;
+}
+
+#chat-form {
+    display: flex;
+    gap: 6px;
+    padding: 10px;
+    background: white;
+    border-top: 1px solid #f5d5e1;
+}
+
+#chat-input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #e8b8ca;
+    border-radius: 20px;
+    padding: 10px 12px;
+    outline-color: #d81b60;
+    font-size: 14px;
+}
+
+#chat-enviar {
+    background: #d81b60;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+</style>
+
+<button id="chat-boton" type="button"
+        aria-controls="chat-ventana" aria-expanded="false">
+    💬 ¿Te ayudo?
+</button>
+
+<section id="chat-ventana" aria-label="Chat de Inspiración">
+    <div id="chat-cabecera">
+        <div>
+            <strong>🌸 Inspiración</strong><br>
+            <small>Asistente de perfumería</small>
+        </div>
+        <button id="chat-cerrar" type="button"
+                aria-label="Cerrar chat">×</button>
+    </div>
+
+    <div id="chat-mensajes" aria-live="polite">
+        <div class="chat-msg chat-bot">
+            ¡Hola! 🌷 Bienvenido/a a Inspiración.<br>
+            ¿Qué tipo de perfume estás buscando?
+        </div>
+        <div class="chat-msg chat-bot">
+            Podés preguntarme por perfumes de mujer,
+            hombre, árabes, precios o recomendaciones.
+        </div>
+    </div>
+
+    <form id="chat-form">
+        <input id="chat-input" type="text"
+               placeholder="Escribí tu consulta..."
+               aria-label="Tu mensaje" maxlength="500"
+               autocomplete="off" required>
+        <button id="chat-enviar" type="submit"
+                aria-label="Enviar mensaje">➤</button>
+    </form>
+</section>
+
+<script>
+(() => {
+    const boton = document.getElementById("chat-boton");
+    const ventana = document.getElementById("chat-ventana");
+    const cerrar = document.getElementById("chat-cerrar");
+    const mensajes = document.getElementById("chat-mensajes");
+    const formulario = document.getElementById("chat-form");
+    const entrada = document.getElementById("chat-input");
+
+    function abrirChat(abierto) {
+        ventana.style.display = abierto ? "block" : "none";
+        boton.setAttribute("aria-expanded", String(abierto));
+        if (abierto) entrada.focus();
+    }
+
+    boton.addEventListener("click", () => {
+        abrirChat(ventana.style.display !== "block");
+    });
+
+    cerrar.addEventListener("click", () => abrirChat(false));
+
+    function agregarMensaje(texto, clase) {
+        const mensaje = document.createElement("div");
+        mensaje.className = "chat-msg " + clase;
+        mensaje.textContent = texto;
+        mensajes.appendChild(mensaje);
+        mensajes.scrollTop = mensajes.scrollHeight;
+    }
+
+    function responder(consulta) {
+        const t = consulta.toLowerCase();
+
+        if (t.includes("hola") || t.includes("buenas")) {
+            return "¡Hola! 🌸 ¿En qué te puedo ayudar?";
+        }
+
+        if (t.includes("mujer") || t.includes("femenino")) {
+            return "🌷 ¡Tenemos opciones para explorar! Podés buscar perfumes de mujer en el catálogo de Inspiración.";
+        }
+
+        if (t.includes("hombre") || t.includes("masculino")) {
+            return "✨ Buscá la categoría Hombre en nuestro catálogo para conocer las fragancias disponibles.";
+        }
+
+        if (t.includes("árabe") || t.includes("arabe")) {
+            return "🌙 ¡Los perfumes árabes son una gran opción! Explorá esa categoría para descubrir fragancias intensas y dulces.";
+        }
+
+        if (t.includes("unisex")) {
+            return "🌸 Los perfumes unisex pueden ser una buena opción para compartir. Explorá esa categoría en el catálogo.";
+        }
+
+        if (t.includes("precio") || t.includes("cuánto") ||
+            t.includes("cuanto") || t.includes("costo")) {
+            return "💗 Los precios pueden variar. Consultanos por WhatsApp para confirmar el precio actualizado de cada perfume.";
+        }
+
+        if (t.includes("whatsapp") || t.includes("comprar") ||
+            t.includes("pedido") || t.includes("stock")) {
+            return "📲 ¡Te ayudamos con tu consulta! Usá el botón de WhatsApp de la página para preguntar por disponibilidad y pedidos.";
+        }
+
+        if (t.includes("regalo") || t.includes("regalar")) {
+            return "🎁 ¡Qué lindo regalar un perfume! ¿Preferís uno dulce, fresco, floral o intenso?";
+        }
+
+        if (t.includes("dulce")) {
+            return "🍓 Si te gustan los aromas dulces, podés explorar fragancias con notas de vainilla, caramelo o frutas.";
+        }
+
+        if (t.includes("fresco")) {
+            return "🍃 Si buscás algo fresco, probá explorar fragancias cítricas, acuáticas o verdes.";
+        }
+
+        if (t.includes("floral")) {
+            return "🌹 Si te gustan las flores, buscá fragancias con notas de rosa, jazmín o flores blancas.";
+        }
+
+        if (t.includes("gracias")) {
+            return "¡De nada! 💗 Gracias por visitar Inspiración.";
+        }
+
+        return "🌸 ¡Gracias por escribirnos! Todavía estoy aprendiendo. Podés consultar las categorías del catálogo o escribirnos por WhatsApp para recibir ayuda personalizada.";
+    }
+
+    formulario.addEventListener("submit", (evento) => {
+        evento.preventDefault();
+        const consulta = entrada.value.trim();
+        if (!consulta) return;
+
+        agregarMensaje(consulta, "chat-usuario");
+        entrada.value = "";
+
+        agregarMensaje(responder(consulta), "chat-bot");
+    });
+})();
+</script>
+<!-- FIN DEL MINI CHATBOT -->
+
 
 </body>
 </html>
